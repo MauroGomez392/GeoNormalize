@@ -1,0 +1,139 @@
+{
+  "dnc_PadrAi": [
+    { "original_column": "TPR-PRIVP", "renamed_column": "TPR-PRIVP" },
+    { "original_column": "TPR-PRIVV", "renamed_column": "TPR-PRIVV" },
+    { "original_column": "TPR-SNDAP", "renamed_column": "TPR-SNDAP" },
+    { "original_column": "TPR-SNDAV", "renamed_column": "TPR-SNDAV" },
+    { "original_column": "TPR-EPUBP", "renamed_column": "TPR-EPUBP" },
+    { "original_column": "TPR-EPUBV", "renamed_column": "TPR-EPUBV" },
+    { "original_column": "TPR-OPUBP", "renamed_column": "TPR-OPUBP" },
+    { "original_column": "TPR-OPUBV", "renamed_column": "TPR-OPUBV" }
+  ],
+  "mvot_CateSuel": [
+    { "original_column": "CSU-RURAP", "renamed_column": "CSU-RURAP" },
+    { "original_column": "CSU-RURAV", "renamed_column": "CSU-RURAV" },
+    { "original_column": "CSU-RNATP", "renamed_column": "CSU-RNATP" },
+    { "original_column": "CSU-RNATV", "renamed_column": "CSU-RNATV" },
+    { "original_column": "CSU-SUBUP", "renamed_column": "CSU-SUBUP" },
+    { "original_column": "CSU-SUBUV", "renamed_column": "CSU-SUBUV" },
+    { "original_column": "CSU-URBAP", "renamed_column": "CSU-URBAP" },
+    { "original_column": "CSU-URBAV", "renamed_column": "CSU-URBAV" }
+  ],
+  "mvot_instapros": [
+    { "original_column": "mvot_instapros", "renamed_column": "INSTAPROSV" }
+  ],
+  "anep_CentEducs": [
+    { "original_column": "CFE", "renamed_column": "CED-FEDUV" },
+    { "original_column": "DGEIP", "renamed_column": "CED-PRIMV" },
+    { "original_column": "DGES", "renamed_column": "CED-SECV" },
+    { "original_column": "DGETP", "renamed_column": "CED-TECV" }
+  ],
+  "asse_UnidAssis": [
+    { "original_column": "PRIMER NIVEL", "renamed_column": "UAS-PRIMV" },
+    { "original_column": "SEGUNDO NIVEL", "renamed_column": "UAS-SEGUV" },
+    { "original_column": "TERCER NIVEL", "renamed_column": "UAS-TERCV" }
+  ],
+  "mides_CentApoy": [
+    { "original_column": "Centro apoyo mides", "renamed_column": "CENTAPOYV" }
+  ],
+  "mides_inau": [
+    { "original_column": "Centros", "renamed_column": "CIN-CENTV" },
+    { "original_column": "Espacios", "renamed_column": "CIN-ESPAV" },
+    { "original_column": "Programas", "renamed_column": "CIN-PROGV" },
+    { "original_column": "Sistema", "renamed_column": "CIN-SISTV" }
+  ],
+  "ParaUrbas": [
+    { "original_column": "Urbana", "renamed_column": "POM-URBAV" },
+    { "original_column": "Suburbana", "renamed_column": "POM-SUBUV" }
+  ],
+  "asse_Ambus": [
+    { "original_column": "samebase", "renamed_column": "BSA-BSAMV" },
+    { "original_column": "ambucomun", "renamed_column": "BSA-ACOMV" },
+    { "original_column": "ambuespecializada", "renamed_column": "BSA-AESPV" }
+  ],
+  "ide_areapobls": [
+    { "original_column": "ide_AreaPobls", "renamed_column": "AREAPOBLSV" }
+  ],
+  "mvot_espalibrs2018": [
+    { "original_column": "mvot_EspaLibrs2018", "renamed_column": "ESPALIBRSV" }
+  ],
+  "CoheGeog": [
+    { "original_column": "CoheGeog", "renamed_column": "COHEGEOGV" }
+  ],
+  "ide_EjCa032023": [
+    { "original_column": "RVI-CALLV", "renamed_column": "RVI-CALLV" }
+  ],
+  "CercAsen": [
+    { "original_column": "CercAsen", "renamed_column": "CERCASENV" }
+  ],
+  "ma_anp": [
+    { "original_column": "ma_anp", "renamed_column": "AREAPROTSV" }
+  ],
+  "ma_app": [
+    { "original_column": "ma_app", "renamed_column": "AREAPOTESV" }
+  ],
+  "ma_linecost": [
+    { "original_column": "ma_LineCost", "renamed_column": "LINECOSTV" }
+  ],
+  "sinae_focoinces": [
+    { "original_column": "sinae_FocoInces", "renamed_column": "FOCOINCESV" }
+  ],
+  "SitiDisp": [
+    { "original_column": "SDFNO", "renamed_column": "SDI-NOOPV" },
+    { "original_column": "SDFO", "renamed_column": "SDI-OPERV" }
+  ],
+  "ma_contverts": [
+    { "original_column": "domestico", "renamed_column": "CVE-DOMV" },
+    { "original_column": "industrial", "renamed_column": "CVE-INDV" },
+    { "original_column": "No aplica", "renamed_column": "CVE-NOAPV" }
+  ],
+  "LineTens": [
+    { "original_column": "Alta", "renamed_column": "LTE-TALTV" },
+    { "original_column": "Media", "renamed_column": "LTE-TMEDV" }
+  ],
+  "ose_disttubes": [
+    { "original_column": "ose_DistTubes", "renamed_column": "DISTAGUAV" }
+  ],
+  "SaneColes": [
+    { "original_column": "saneColes", "renamed_column": "SANEV" }
+  ],
+  "ine_ZonaPobl": [
+    { "original_column": "ENSPOBLV", "renamed_column": "ENSPOBLV" }
+  ],
+  "mides_Coops": [
+    { "original_column": "Agrarias", "renamed_column": "COOP-AGRV" },
+    { "original_column": "Ahorro y Crédito", "renamed_column": "COOP-AHCV" },
+    { "original_column": "Artistas y Oficios conexos", "renamed_column": "COOP-ARTV" },
+    { "original_column": "Consumo", "renamed_column": "COOP-CONSV" },
+    { "original_column": "Sociales", "renamed_column": "COOP-SOCV" },
+    { "original_column": "Sociedad de Fomento Rural", "renamed_column": "COOP-FRURV" },
+    { "original_column": "Trabajo", "renamed_column": "COOP-TRAV" },
+    { "original_column": "Vivienda", "renamed_column": "COOP-VIVV" }
+  ],
+  "mvot_AsenIrres": [
+    { "original_column": "IMV_JUNTV", "renamed_column": "IMV-JUNTV" },
+    { "original_column": "IMV-JUNTV", "renamed_column": "IMV-JUNTV" },
+    { "original_column": "IMV-AVANV", "renamed_column": "IMV-AVANV" },
+    { "original_column": "IMV-MEVV", "renamed_column": "IMV-MEVV" },
+    { "original_column": "IMV-ANVV", "renamed_column": "IMV-ANVV" },
+    { "original_column": "IMV-PMBV", "renamed_column": "IMV-PMBV" }
+  ],
+  "mvot_proypmb": [
+    { "original_column": "mvot_ProyPmb", "renamed_column": "PROYPMBV" }
+  ],
+  "mides_mec": [
+    { "original_column": "Centros MEC", "renamed_column": "MEC-CENTV" },
+    { "original_column": "CECAP", "renamed_column": "MEC-CECAPV" },
+    { "original_column": "Usina cultural", "renamed_column": "MEC-USCULV" },
+    { "original_column": "PAS", "renamed_column": "MEC-PASV" },
+    { "original_column": "Biblioteca", "renamed_column": "MEC-BIBLIV" }
+  ],
+  "mvot_ConjHabis": [
+    { "original_column": "AUTOCONSTRUCCION", "renamed_column": "CHA-AUTOV" },
+    { "original_column": "BHU", "renamed_column": "CHA-BHUV" },
+    { "original_column": "INTENDENCIAS", "renamed_column": "CHA-INTEV" },
+    { "original_column": "LEY_PROMOCION_INVERSORES", "renamed_column": "CHA-LPROV" },
+    { "original_column": "MVOT", "renamed_column": "CHA-MVOTV" },
+    { "original_column": "MEVIR", "renamed_column": "CHA-MEVIV" }
+  ]
+}
