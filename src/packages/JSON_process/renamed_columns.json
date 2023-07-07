@@ -65,6 +65,9 @@
   ],
   "CercAsen": [
     { "original_column": "CercAsen", "renamed_column": "CERCASENV" }
+  ],  
+  "TAMAASENV": [
+    { "original_column": "TAMAASENV", "renamed_column": "TAMAASENV" }
   ],
   "ma_anp": [
     { "original_column": "ma_anp", "renamed_column": "AREAPROTSV" }

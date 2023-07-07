@@ -1,7 +1,7 @@
 import geopandas as gpd
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
-from packages.Logs.logs import *
+from Logs.logs import *
 from .db_psql import *
 import psycopg2
 #Class with credentials for DB connect
