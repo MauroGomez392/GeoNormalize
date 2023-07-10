@@ -1,7 +1,7 @@
 #-----------------/File that set the logs file/--------------------------
 import logging
 from datetime import datetime
-from DB_set.db_psql import *
+from packages.DB_set.db_psql import *
 
 
 #Class with credentials for DB value shp folder path
