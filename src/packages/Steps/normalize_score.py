@@ -4,23 +4,24 @@ import geopandas as gpd
 
 def normalize_score(gdf_score: gpd.GeoDataFrame):
     try:
-        new_gdf = gdf_score[['id', 'depa', 'geometry']].copy()  # Crear un nuevo GeoDataFrame con 'id' y 'geometry'
+        # Crea una copia del GeoDataFrame para no modificar el original
+        gdf_normalized = gdf_score.copy()
 
-        # Filtrar las columnas a normalizar
-        columns_to_normalize = [column for column in gdf_score.columns if column != 'geometry' and column != 'id' and column != 'depa']
+        # Guarda las columnas 'id', 'depa' y 'geometry' para luego agregarlas nuevamente
+        columns_to_ignore = ['id', 'depa', 'geometry']
 
-        # Iterar sobre las columnas y realizar la normalización por min-max
+        # Obtén la lista de columnas a normalizar (todas excepto las de ignorar)
+        columns_to_normalize = [col for col in gdf_normalized.columns if col not in columns_to_ignore]
+
+        # Normaliza las columnas especificadas utilizando el método Min-Max
         for column in columns_to_normalize:
-            if '-' in column:
-                new_column = column[:-1] + 'N'  # Reemplazar la última letra por 'N'
-                new_gdf[new_column] = gdf_score[column].apply(lambda x: x if pd.isnull(x) else (round((x - gdf_score[column].min()) / (gdf_score[column].max() - gdf_score[column].min()), 6)))
-            else:
-                min_value = gdf_score[column].min()
-                max_value = gdf_score[column].max()
-                new_column = column[:-1] + 'N'  # Reemplazar la última letra por 'N'
-                new_gdf[new_column] = round((gdf_score[column] - min_value) / (max_value - min_value), 6)
+            gdf_normalized[column] = (gdf_normalized[column] - gdf_normalized[column].min()) / (gdf_normalized[column].max() - gdf_normalized[column].min())
 
-        return new_gdf
+            # Cambia la última letra de "S" a "N" en el nombre de la columna
+            new_column_name = column[:-1] + 'N'
+            gdf_normalized = gdf_normalized.rename(columns={column: new_column_name})
+
+        return gdf_normalized   
     except Exception as ex:
         print(f"Error al ejecutar algoritmo 'normalize_score':  " + str(ex))
         logging.error(f"Error al ejecutar algoritmo 'normalize_score':  " + str(ex))

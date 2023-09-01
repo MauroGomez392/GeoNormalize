@@ -1,15 +1,19 @@
 import geopandas as gpd
+import pandas as pd
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from packages.Logs.logs import *
 from .db_psql import *
 import psycopg2
+from shapely.geos import *
+
 #Class with credentials for DB connect
 db_psql = Psql()
 
 #-----------------/Connecting with Database/--------------------------
 try:
-    engine = create_engine(db_psql.get_url_connect())
+    con_string = db_psql.get_url_connect()
+    engine = create_engine(con_string)
     logging.warning("----------------------------------------------------------------------------------------------")
     logging.warning("Conexión con Postgres establecida")
     print("Conexión con Postgres establecida")
@@ -24,7 +28,7 @@ session = Session()
 #-----------------/Helpers Method`s related to DB/--------------------------
 
 #This method will send the SQL query to the db. It has to be called after a SQL sentence and need to be passed as second parameter. The firstone´ll be the engine needed for the conection with db
-def send_query_to_db(engine, query):
+def send_query_to_db(query):
     conn = engine.connect()
     try:
         conn.execute(query)
@@ -35,27 +39,32 @@ def send_query_to_db(engine, query):
         return False
 
 #Method that search the layer in the db and returns true if it is found and false if it´s not       
-def check_if_existe_table_in_db(engine, layer_cod):
-    query = f'SELECT * FROM public."{layer_cod}"'
-    return send_query_to_db(engine, query)
+def check_if_existe_table_in_db(layer_cod):
+    query = f'SELECT * FROM "gp_resulted"."{layer_cod}"'
+    return send_query_to_db(text(query))
       
 #Brings the layer and return it in memory
-def bring_layer(layer_name: str, schema: str, engine):
+def bring_layer(layer_name: str, schema: str):
     try:
-        query = f'SELECT * FROM "{schema}"."{layer_name}";'
-        layer = gpd.read_postgis(query, engine, "geometry")
+        query = text(f'SELECT * FROM "{schema}"."{layer_name}";')        
+        layer = gpd.read_postgis(query, engine, geom_col="geometry")                
+        print(type(layer) , "    print al TRAER la capa")
         return layer
+
     except Exception as ex:
         print(f"Error al traer capa {layer_name}:  " + str(ex))
         logging.error(f"Error al traer capa {layer_name}:  " + str(ex))
 
 #-----------------/Post Layer into DB/--------------------------
 #Persist the geodataframe format layer in the database using postgis
-def insert_layer_into_postgis(layer:gpd.GeoDataFrame, table_name: str, engine, schema_ : str = 'gp_resulted'):
+def insert_layer_into_postgis(layer:gpd.GeoDataFrame, table_name: str, schema_ : str = 'gp_resulted'):
     try:
         #-----------------/Connection with Geopandas/--------------------------
         connection_geoP = engine.connect()
-        layer.to_postgis(table_name, connection_geoP, schema_ , if_exists = 'replace', index = False, index_label = None, chunksize = None, dtype = None)
+        print(type(layer), "    print al INSERTAR")
+        print(layer.crs)
+        l = gpd.GeoDataFrame(layer)
+        l.to_postgis(table_name, engine, schema_ , if_exists = 'replace', index = False, index_label = None, chunksize = None, dtype = None)
         print("Proceso insert_layer_into_postgis realizado")             
     except Exception as ex:
         print("Error al ejecutar algoritmo insert_layer_into_postgis:     " + str(ex))

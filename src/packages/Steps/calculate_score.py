@@ -13,7 +13,35 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
 
         # Recorrer cada columna en el dataframe 'gdf'
         for column in gdf.columns:
-            if column == 'DENSPOBLV':
+            if column == 'PARAOMNIV':
+                # Obtener los rangos, subpuntuaciones y puntuación para PARAOMNIV una sola vez
+                paraomniv_ranges = dictionary['PARAOMNIV']['ranges']
+                paraomniv_subscores = dictionary['PARAOMNIV']['subscores']
+                values = gdf[column].values
+                paraomnis_values = []
+
+                for i in range(len(values)):
+                    if pd.isnull(values[i]):
+                        # Si el valor en 'PARAOMNIV' es nulo, el resultado en 'PARAOMNIS' también debe ser nulo
+                        paraomnis_values.append(np.nan)
+                    else:
+                        # Obtener el valor actual de 'PARAOMNIV'
+                        paraomniv_value = values[i]
+
+                        # Encontrar el rango al que pertenece el valor
+                        for j in range(len(paraomniv_ranges)):
+                            if paraomniv_ranges[j][0] <= paraomniv_value < paraomniv_ranges[j][1]:
+                                # Usar el 'score' correspondiente al rango
+                                score = paraomniv_subscores[j]
+                                paraomnis_values.append(score)
+                                break
+
+                # Agregar la columna 'PARAOMNIS' al dataframe 'gdf'
+                gdf['PARAOMNIS'] = paraomnis_values
+                new_columns.append('PARAOMNIS')
+                desired_categories.add('PARAOMNIS')
+                
+            elif column == 'DENSPOBLV':
                 # Verificar si la columna es 'DENSPOBLV'
                 is_montevideo = gdf['depa'] == 'Montevideo'
                 if np.any(is_montevideo):
@@ -44,20 +72,17 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
                             # Calcular la subpuntuación total para el valor actual
                             subscore_total += subscores[j] * score
                     subscore_totals.append(subscore_total)
-
                 # Agregar la columna de suma al dataframe 'gdf'
+#TODO: GENERAR FUNCIÓN PARA ITERACIÓN DE RANGOS
                 gdf[sum_column] = subscore_totals
 
             else:
-                # Verificar si la columna no es 'id' ni 'geometry' ni 'depa' //
-                # Lo transformo a chequear por nombres en mayúscula, sabemos que todos los nombres NO propios de asentamiento 
-                # (es decir los generados en geoProc) son en Mayúscula 
-                if column.isupper():
+                # Verificar si la columna no es 'id' ni 'geometry' ni 'depa'
+                if column != 'id' and column != 'geometry' and column != 'depa':
                     # Verificar si la columna con sufijo '-S' no existe en 'gdf'
                     if column + '-S' not in gdf.columns:
                         # Verificar si la columna tiene un guion '-' en su nombre
                         if '-' in column:
-                            #pdb.set_trace()
                             # Dividir el nombre de la columna en categoría y subcategoría
                             category, subcategory = column.split('-')
 
@@ -92,7 +117,7 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
                                             # Calcular la subpuntuación total para el valor actual
                                             subscore_total += subscores[j] * score
                                     subscore_totals.append(subscore_total)
-
+#TODO
                                 # Agregar la columna de suma al dataframe 'gdf'
                                 gdf[sum_column] = subscore_totals
                                 # Agregar la columna de suma al diccionario 'sum_columns'
@@ -140,14 +165,9 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
         # Filtrar las columnas según las categorías deseadas
         desired_columns = [column for column in result_gdf.columns if column.endswith('-S') or column.endswith('S')]
 
-        # Reemplazar los valores de suma iguales a 0 por None o celdas vacías en las columnas que tienen guion
-        for column in desired_columns:
-            if "-" in column:
-                result_gdf.loc[result_gdf[column] == 0, column] = None
-
         result_gdf = result_gdf[['id', 'depa'] + desired_columns + ['geometry']]
 
-        return result_gdf
+        return result_gdf   
     except Exception as ex:
         print(f"Error al ejecutar algoritmo 'calculate_score':  " + str(ex))
         logging.error(f"Error al ejecutar algoritmo 'calculate_score':  " + str(ex))
