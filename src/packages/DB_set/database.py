@@ -1,11 +1,10 @@
 import geopandas as gpd
-import pandas as pd
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from packages.Logs.logs import *
-from .db_psql import *
+from .db_psql import Psql
 import psycopg2
-from shapely.geos import *
+#from shapely.geos import *
 
 #Class with credentials for DB connect
 db_psql = Psql()
@@ -28,7 +27,7 @@ session = Session()
 #-----------------/Helpers Method`s related to DB/--------------------------
 
 #This method will send the SQL query to the db. It has to be called after a SQL sentence and need to be passed as second parameter. The firstone´ll be the engine needed for the conection with db
-def send_query_to_db(query):
+def execute_query(query):
     conn = engine.connect()
     try:
         conn.execute(query)
@@ -41,7 +40,7 @@ def send_query_to_db(query):
 #Method that search the layer in the db and returns true if it is found and false if it´s not       
 def check_if_existe_table_in_db(layer_cod):
     query = f'SELECT * FROM "gp_resulted"."{layer_cod}"'
-    return send_query_to_db(text(query))
+    return execute_query(text(query))
       
 #Brings the layer and return it in memory
 def bring_layer(layer_name: str, schema: str):
@@ -60,7 +59,6 @@ def bring_layer(layer_name: str, schema: str):
 def insert_layer_into_postgis(layer:gpd.GeoDataFrame, table_name: str, schema_ : str = 'gp_resulted'):
     try:
         #-----------------/Connection with Geopandas/--------------------------
-        connection_geoP = engine.connect()
         print(type(layer), "    print al INSERTAR")
         print(layer.crs)
         l = gpd.GeoDataFrame(layer)

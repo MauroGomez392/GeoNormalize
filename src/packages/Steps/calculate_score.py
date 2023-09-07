@@ -2,8 +2,17 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 from packages.DB_set.database import *
-import pdb
 
+
+def rank_assigner(ranges, values, subscores, score):
+    subscore_totals = []
+    for i in range(len(values)):
+        subscore_total = 0.0
+        for j in range(len(ranges)):
+            if ranges[j][0] <= values[i] < ranges[j][1]:
+                subscore_total += subscores[j] * score
+        subscore_totals.append(subscore_total)
+    return subscore_totals
 
 def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
     try:
@@ -61,20 +70,8 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
                 desired_categories.add(column)
 
                 # Obtener los valores de la columna 'DENSPOBLV'
-                values = gdf[column].values
-                subscore_totals = []
-                # Calcular la suma de las subpuntuaciones para cada valor en la columna
-                for i in range(len(values)):
-                    subscore_total = 0.0
-                    for j in range(len(ranges)):
-                        # Verificar si el valor está dentro del rango actual
-                        if ranges[j][0] <= values[i] < ranges[j][1]:
-                            # Calcular la subpuntuación total para el valor actual
-                            subscore_total += subscores[j] * score
-                    subscore_totals.append(subscore_total)
-                # Agregar la columna de suma al dataframe 'gdf'
-#TODO: GENERAR FUNCIÓN PARA ITERACIÓN DE RANGOS
-                gdf[sum_column] = subscore_totals
+                values = gdf[column].values        
+                gdf[sum_column] = rank_assigner(ranges, values, subscores, score)
 
             else:
                 # Verificar si la columna no es 'id' ni 'geometry' ni 'depa'
@@ -107,19 +104,7 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
 
                                 # Obtener los valores de la columna actual
                                 values = gdf[column].values
-                                subscore_totals = []
-                                # Calcular la suma de las subpuntuaciones para cada valor en la columna
-                                for i in range(len(values)):
-                                    subscore_total = 0.0
-                                    for j in range(len(ranges)):
-                                        # Verificar si el valor está dentro del rango actual
-                                        if ranges[j][0] <= values[i] < ranges[j][1]:
-                                            # Calcular la subpuntuación total para el valor actual
-                                            subscore_total += subscores[j] * score
-                                    subscore_totals.append(subscore_total)
-#TODO
-                                # Agregar la columna de suma al dataframe 'gdf'
-                                gdf[sum_column] = subscore_totals
+                                gdf[sum_column] = rank_assigner(ranges, values, subscores, score)
                                 # Agregar la columna de suma al diccionario 'sum_columns'
                                 sum_columns[sum_column_prefix].append(sum_column)
 
@@ -136,19 +121,8 @@ def calculate_score(gdf: gpd.GeoDataFrame, dictionary):
 
                             # Obtener los valores de la columna actual
                             values = gdf[column].values
-                            subscore_totals = []
-                            # Calcular la suma de las subpuntuaciones para cada valor en la columna
-                            for i in range(len(values)):
-                                subscore_total = 0.0
-                                for j in range(len(ranges)):
-                                    # Verificar si el valor está dentro del rango actual
-                                    if ranges[j][0] <= values[i] < ranges[j][1]:
-                                        # Calcular la subpuntuación total para el valor actual
-                                        subscore_total += subscores[j] * score
-                                subscore_totals.append(subscore_total)
-
                             # Agregar la columna de suma al dataframe 'gdf'
-                            gdf[sum_column] = subscore_totals
+                            gdf[sum_column] = rank_assigner(ranges, values, subscores, score)
 
         # Calcular la suma de las columnas de suma y agregarlas al dataframe 'gdf'
         for prefix, columns in sum_columns.items():

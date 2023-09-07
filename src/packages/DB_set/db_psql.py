@@ -11,6 +11,7 @@ class Psql:
         self.db_host = os.getenv('DB_HOST')
         self.db_port = os.getenv('DB_PORT')
         self.logs_folder = os.getenv('LOGS_LOCAL_FOLDER')
+        self.project_location_path = os.getenv('PTOJECT_LOCATION_PATH')
 #-----------------/Builds the URL for the connect/--------------------------
     def get_url_connect(self):
         #"postgresql://postgres:" + self.passW + "@localhost:5432/PruebaAsentamiento"
