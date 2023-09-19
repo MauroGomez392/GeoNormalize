@@ -47,7 +47,6 @@ def bring_layer(layer_name: str, schema: str):
     try:
         query = text(f'SELECT * FROM "{schema}"."{layer_name}";')        
         layer = gpd.read_postgis(query, engine, geom_col="geometry")                
-        print(type(layer) , "    print al TRAER la capa")
         return layer
 
     except Exception as ex:
