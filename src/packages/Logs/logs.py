@@ -12,7 +12,7 @@ logs_folder = db_psql.logs_folder
 #Function made to the save the logs inside the Log´s file:
 def set_loggs():
     date_today = datetime.today().date()    
-    name = logs_folder + "LogsNormalize/" + "Logs from " + str(date_today)
+    name = logs_folder + "\Logs from " + str(date_today)
     name += ".txt"
     logging.basicConfig(filename=name, filemode='a', format='%(asctime)s - %(levelname)s -  %(message)s', datefmt='%H:%M:%S')
 

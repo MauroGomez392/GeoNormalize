@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from packages.Logs.logs import *
 from .db_psql import Psql
 import psycopg2
-#from shapely.geos import *
 
 #Class with credentials for DB connect
 db_psql = Psql()
@@ -58,8 +57,6 @@ def bring_layer(layer_name: str, schema: str):
 def insert_layer_into_postgis(layer:gpd.GeoDataFrame, table_name: str, schema_ : str = 'gp_resulted'):
     try:
         #-----------------/Connection with Geopandas/--------------------------
-        print(type(layer), "    print al INSERTAR")
-        print(layer.crs)
         l = gpd.GeoDataFrame(layer)
         l.to_postgis(table_name, engine, schema_ , if_exists = 'replace', index = False, index_label = None, chunksize = None, dtype = None)
         print("Proceso insert_layer_into_postgis realizado")             

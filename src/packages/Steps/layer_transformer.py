@@ -8,7 +8,7 @@ from shapely.validation import explain_validity
 #Class with credentials for DB connect
 db_psql = Psql()
 #Path to JSON file
-json_file_path = f"{db_psql.project_location_path}GeoNormalize/src/packages/JSON_process/renamed_columns.json"
+json_file_path = f"{db_psql.project_location_path}/src/packages/JSON_process/renamed_columns.json"
 
 
 def modify_columns(layer: gpd.GeoDataFrame, columns:list):
