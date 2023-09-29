@@ -1,2 +1,2 @@
 # GeoNormalize
-Puntuar y normalizar datos de capa para consumir en el Front-End
+Puntuar y normalizar datos de capa para consumir en el visualizador (Front-End)

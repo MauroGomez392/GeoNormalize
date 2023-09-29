@@ -1,4 +1,3 @@
-#-----------------/File that set the logs file/--------------------------
 import logging
 from datetime import datetime
 from packages.DB_set.db_psql import *
