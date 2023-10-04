@@ -17,7 +17,7 @@ variables = {
         },
         'OPUBP': {
             'ranges': [(0, 20), (20, 50), (50, 80), (80, float('inf'))],
-            'subscores': [1, 0.75, 0.25, 1],
+            'subscores': [1, 0.75, 0.25, 0],
             'score': [1]
         }
     },
